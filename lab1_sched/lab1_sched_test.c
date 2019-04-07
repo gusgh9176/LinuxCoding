@@ -1,8 +1,8 @@
 /*
 *	DKU Operating System Lab
 *	    Lab1 (Scheduler Algorithm Simulator)
-*	    Student id : 
-*	    Student name : 
+*	    Student id : 32151574 
+*	    Student name : Moon Hyun Ho
 *
 *   lab1_sched.c :
 *       - Lab1 source file.
@@ -34,6 +34,6 @@
  */
 
 int main(int argc, char *argv[]){
-
+	RR();
 }
 
