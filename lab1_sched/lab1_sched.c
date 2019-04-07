@@ -65,11 +65,11 @@ int DelQ()
 
 void RR()
 {
-	char word[3] = {'A', 'B', 'C'}; // program name
-	int run_time[3] = {5, 5, 5}; // program run_time
-	int arrival_time[3] = {0, 0, 0}; // program arrival_time
-	bool Insert_program[3] = {false, false, false}; // first insert bool
-	int time_slice = 1; // time_slice
+	char word[5] = {'A', 'B', 'C', 'D', 'E'}; // program name
+	int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
+	int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
+	bool Insert_program[5] = {false, }; // first insert bool
+	int time_slice = 4; // time_slice
 	int current_time = 0; // current_time
 	int all_time = 0; // add all run_time
 	int * order; // save program number, order of time
@@ -90,7 +90,8 @@ void RR()
 			Insert_program[i] = true;
 		}
 	}
-	for(int j=0; j<sizeof(order)/sizeof(int); j=current_program_time)
+	// fill order
+	for(int j=0; j<all_time; j=current_program_time)
 	{
 		int insert = DelQ();
 		for(int k=current_program_time; k<current_program_time + time_slice; k++)
@@ -99,17 +100,19 @@ void RR()
 			run_time[insert] = run_time[insert] - 1;
 			
 			for(int i=0; i<sizeof(word); i++)
-				if(!(Insert_program[i]) && arrival_time[i]<=k)
+				if(!(Insert_program[i]) && arrival_time[i]<=k+1)
 				{
 					InsertQ(i);
 					Insert_program[i]=true;
 				}
+			if(run_time[insert]==0)
+				break;
 		}
 		if(run_time[insert] != 0)
 			InsertQ(insert);
 		current_program_time = current_program_time + time_slice;
 	}
-	for(int i=0; i<sizeof(order)/sizeof(int); i++)
+	for(int i=0; i<all_time; i++)
 		printf("%d ",order[i]);
 }
 
