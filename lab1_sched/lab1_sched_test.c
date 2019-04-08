@@ -34,8 +34,13 @@
  */
 
 int main(int argc, char *argv[]){
-	RR();
+	int *order;
+	printf("RR\n");
+	order = RR();
+	print(order);
 	printf("\n");
-	MLFQ();
+	printf("MLFQ\n");
+	order = MLFQ();
+	print(order);
 }
 

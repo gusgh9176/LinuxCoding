@@ -152,8 +152,8 @@ int* RR()
 			InsertQ(insert);
 		current_program_time = current_program_time + work_time;
 	}
-	for(int i=0; i<all_time; i++)
-		printf("%d ",order[i]);
+//	for(int i=0; i<all_time; i++)
+//		printf("%d ",order[i]);
 	return order;
 }
 
@@ -235,24 +235,20 @@ int* MLFQ()
 			}
                 current_program_time = current_program_time + work_time;
         }
-        for(int i=0; i<all_time; i++)
-                printf("%d ",order[i]);
+//        for(int i=0; i<all_time; i++)
+//                printf("%d ",order[i]);
 	return order;
 }
 
 void print(int *order)
 {
-	for(int i=0; i<sizeof(order)/sizeof(int); i++)
-	{
-		
-	}
 	printf("name    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 \n");
 	for(int i=0; i<sizeof(word); i++)
 	{
 		printf("%4s    ",word[i]);
 		for(int j=0; j<sizeof(order)/sizeof(int); j++)
 		{
-			if(word[i]==order[j])
+			if(i==order[j])
 				printf("■ ");
 			else
 				printf("□ ");
