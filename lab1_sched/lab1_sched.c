@@ -31,6 +31,7 @@ typedef enum {false, true} bool;
 /*
  * you need to implement FCFS, RR, SPN, SRT, HRRN, MLFQ scheduler. 
  */
+char word[5] = {'A', 'B', 'C', 'D', 'E'}; // program name
 
 int *RR_queue;
 int RR_size;
@@ -102,9 +103,8 @@ int DelQ()
 	return temp;
 }
 
-void RR()
+int* RR()
 {
-	char word[5] = {'A', 'B', 'C', 'D', 'E'}; // program name
 	int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
 	int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
 	bool Insert_program[5] = {false, }; // first insert bool
@@ -154,11 +154,11 @@ void RR()
 	}
 	for(int i=0; i<all_time; i++)
 		printf("%d ",order[i]);
+	return order;
 }
 
-void MLFQ()
+int* MLFQ()
 {
-	char word[5] = {'A', 'B', 'C', 'D', 'E'}; // program name
         int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
         int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
         bool Insert_program[5] = {false, }; // first insert bool
@@ -224,7 +224,7 @@ void MLFQ()
 			count = count + MLFQ_count[i];
 		}
                 if(run_time[insert] != 0)
-			if(count == 1)
+			if(count == 0)
         	                MLFQ_InsertQ(insert,0);
 			else
 			{
@@ -237,5 +237,28 @@ void MLFQ()
         }
         for(int i=0; i<all_time; i++)
                 printf("%d ",order[i]);
+	return order;
 }
+
+void print(int *order)
+{
+	for(int i=0; i<sizeof(order)/sizeof(int); i++)
+	{
+		
+	}
+	printf("name    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 \n");
+	for(int i=0; i<sizeof(word); i++)
+	{
+		printf("%4s    ",word[i]);
+		for(int j=0; j<sizeof(order)/sizeof(int); j++)
+		{
+			if(word[i]==order[j])
+				printf("
+		}
+		printf("\n");
+	}
+}
+
+
+
 
