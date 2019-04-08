@@ -32,6 +32,7 @@ typedef enum {false, true} bool;
  * you need to implement FCFS, RR, SPN, SRT, HRRN, MLFQ scheduler. 
  */
 char word[5] = {'A', 'B', 'C', 'D', 'E'}; // program name
+int all_time = 0; // add all run_time
 
 int *RR_queue;
 int RR_size;
@@ -110,10 +111,9 @@ int* RR()
 	bool Insert_program[5] = {false, }; // first insert bool
 	int time_slice = 4; // time_slice
 	int current_time = 0; // current_time
-	int all_time = 0; // add all run_time
 	int * order; // save program number, order of time
 	int current_program_time = 0; 
-
+	all_time = 0; // initialization
 	// all runtime
 	for(int i=0; i<sizeof(run_time)/sizeof(int); i++)
 	{
@@ -164,12 +164,11 @@ int* MLFQ()
         bool Insert_program[5] = {false, }; // first insert bool
         int time_slice = 4; // time_slice
         int current_time = 0; // current_time
-        int all_time = 0; // add all run_time
         int * order; // save program number, order of time
         int current_program_time = 0;
 	int count = 0; // current running process count in all Queue
 	int current_queue = 0; // current running Queue
-
+	all_time = 0; // initialization
 	// all runtime
         for(int i=0; i<sizeof(run_time)/sizeof(int); i++)
         {
@@ -242,16 +241,20 @@ int* MLFQ()
 
 void print(int *order)
 {
-	printf("name    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 \n");
+	int count = all_time;
+	printf("name   ");
+	for(int i=0; i<count+1; i++)
+		printf("%-3d",i);
+	printf("\n");
 	for(int i=0; i<sizeof(word); i++)
 	{
-		printf("%4s    ",word[i]);
-		for(int j=0; j<sizeof(order)/sizeof(int); j++)
+		printf("%4c    ",word[i]);
+		for(int j=0; j<count; j++)
 		{
 			if(i==order[j])
-				printf("■ ");
+				printf("■  ");
 			else
-				printf("□ ");
+				printf("□  ");
 		}
 		printf("\n");
 	}
