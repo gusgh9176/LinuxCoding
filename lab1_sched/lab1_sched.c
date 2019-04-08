@@ -253,7 +253,9 @@ void print(int *order)
 		for(int j=0; j<sizeof(order)/sizeof(int); j++)
 		{
 			if(word[i]==order[j])
-				printf("
+				printf("■ ");
+			else
+				printf("□ ");
 		}
 		printf("\n");
 	}
