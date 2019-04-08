@@ -35,5 +35,7 @@
 
 int main(int argc, char *argv[]){
 	RR();
+	printf("\n");
+	MLFQ();
 }
 
