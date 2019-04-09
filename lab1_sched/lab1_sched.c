@@ -110,7 +110,6 @@ int* RR()
 	int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
 	bool Insert_program[5] = {false, }; // first insert bool
 	int time_slice = 4; // time_slice
-	int current_time = 0; // current_time
 	int * order; // save program number, order of time
 	int current_program_time = 0; 
 	all_time = 0; // initialization
@@ -163,7 +162,6 @@ int* MLFQ()
         int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
         bool Insert_program[5] = {false, }; // first insert bool
         int time_slice = 4; // time_slice
-        int current_time = 0; // current_time
         int * order; // save program number, order of time
         int current_program_time = 0;
 	int count = 0; // current running process count in all Queue
