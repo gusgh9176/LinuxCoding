@@ -35,6 +35,9 @@
 
 int main(int argc, char *argv[]){
 	int *order;
+	printf("FIFO\n");
+	order = FIFO();
+	print(order);
 	printf("RR\n");
 	order = RR();
 	print(order);
@@ -42,5 +45,8 @@ int main(int argc, char *argv[]){
 	printf("MLFQ\n");
 	order = MLFQ();
 	print(order);
+	printf("Lottery\n");
+	order = Lottery();
+	print(Lottery());
 }
 

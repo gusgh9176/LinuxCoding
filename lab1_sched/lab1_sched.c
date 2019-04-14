@@ -103,7 +103,56 @@ int DelQ()
 	RR_head = (RR_head+1)%RR_size;
 	return temp;
 }
+int* FIFO()
+{
+	int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
+        int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
+        bool Insert_program[5] = {false, }; // first insert bool
+        int * order; // save program number, order of time
+        int current_program_time = 0;
+        all_time = 0; // initialization
+        // all runtime
+        for(int i=0; i<sizeof(run_time)/sizeof(int); i++)
+        {
+                all_time = all_time + run_time[i];
+        }
+        order = (int*)malloc(sizeof(int)*all_time);
+        Queue(10); // create size 10 Queue
+        // First insert program number in Queue(arrival_time == 0)
+	for(int i=0; i<sizeof(word); i++)
+        {       if(arrival_time[i]==0)
+                {
+                        InsertQ(i);
+                        Insert_program[i] = true;
+                }
+        }
+	 // fill order
+        for(int j=0; j<all_time; j=current_program_time)
+        {
+                int insert = DelQ();
+                int work_time = run_time[insert];
+                for(int k=current_program_time; k<current_program_time + work_time; k++)
+                {
+                        order[k] = insert;
+                        run_time[insert] = run_time[insert] - 1;
+                        for(int i=0; i<sizeof(word); i++)
+                                if(!(Insert_program[i]) && arrival_time[i]<=k+1)
+                                {
+                                        InsertQ(i);
+                                        Insert_program[i]=true;
+                                }
+                        if(run_time[insert]==0)
+                                break;
+                }
+                if(run_time[insert] != 0)
+                        InsertQ(insert);
+                current_program_time = current_program_time + work_time;
+        }
+//      for(int i=0; i<all_time; i++)
+//              printf("%d ",order[i]);
+        return order;
 
+}
 int* RR()
 {
 	int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
@@ -237,6 +286,69 @@ int* MLFQ()
 	return order;
 }
 
+int* Lottery()
+{
+	int run_time[5] = {3, 6, 4, 5, 2}; // program run_time
+        int arrival_time[5] = {0, 2, 4, 6, 8}; // program arrival_time
+	int ticket[5] = {100,200,300,400,500};
+	int Total_ticket = 0;
+	int current_ticket = 0;
+	int * choose_ticket;
+        bool Insert_program[5] = {false, }; // first insert bool
+        int * order; // save program number, order of time
+        int current_program_time = 0;
+        all_time = 0; // initialization
+	for(int i=0; i<sizeof(ticket)/sizeof(int); i++)
+		Total_ticket = Total_ticket + ticket[i];
+        // all runtime
+        for(int i=0; i<sizeof(run_time)/sizeof(int); i++)
+        {
+                all_time = all_time + run_time[i];
+        }
+        order = (int*)malloc(sizeof(int)*all_time);
+	choose_ticket = (int*)malloc(sizeof(int)*Total_ticket);
+        // First insert program number in Queue(arrival_time == 0)
+        for(int i=0; i<sizeof(word); i++)
+        {       if(arrival_time[i]==0)
+                {
+			for(int j=current_ticket; j<current_ticket+ticket[i]; j++)
+				choose_ticket[j] = i;
+			current_ticket = current_ticket + ticket[i];
+                        Insert_program[i] = true;
+                }
+        }
+	// fill order
+        for(int j=0; j<all_time; j=current_program_time)
+        {
+                srand(time(NULL));
+		int choose;
+		int insert;
+		do
+		{
+			choose = rand() % current_ticket;
+			insert = choose_ticket[choose];
+		}while(run_time[insert]==0);
+                int work_time = 0;
+                for(int k=current_program_time; k<current_program_time + 1; k++)
+                {
+                        order[k] = insert;
+                        run_time[insert] = run_time[insert] - 1;
+                        work_time = work_time + 1;
+                        for(int i=0; i<sizeof(word); i++)
+                                if(!(Insert_program[i]) && arrival_time[i]<=k+1)
+                                {
+					for(int j=current_ticket; j<current_ticket+ticket[i]; j++)
+		                                choose_ticket[j] = i;
+        		                current_ticket = current_ticket + ticket[i];
+                                        Insert_program[i]=true;
+                                }
+                        if(run_time[insert]==0)
+                                break;
+                }
+                current_program_time = current_program_time + work_time;
+        }
+	return order;
+}
 void print(int *order)
 {
 	int count = all_time;
