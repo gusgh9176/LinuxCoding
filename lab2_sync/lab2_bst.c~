@@ -29,12 +29,6 @@ lab2_tree* init_tree = NULL;
  */
 int lab2_node_print_inorder(lab2_tree *tree) {
     // You need to implement lab2_node_print_inorder function.
-	lab2_node* p = tree->root;
-	if(p == NULL)
-		return;
-	lab2_node_print_inorder(p->left);
-	printf("%c",p->key);
-	lab2_node_print_inorder(p->right);
 }
 
 /*
@@ -117,11 +111,6 @@ int lab2_node_insert_fg(lab2_tree *tree, lab2_node *new_node){
  */
 int lab2_node_insert_cg(lab2_tree *tree, lab2_node *new_node){
     // You need to implement lab2_node_insert_cg function.
-	int rc = pthread_mutex_init(&(tree->root->mutex), NULL);
-	assert(rc == 0);
-	pthread_mutex_lock(&(tree->root->mutex));
-	lab2_node_insert(tree, new_node);
-	pthread_mutex_unlock(&(tree->root->mutex));
 }
 	// find min key node
 lab2_node* findMinNode(lab2_node* root)
@@ -184,7 +173,6 @@ int lab2_node_remove(lab2_tree *tree, int key) {
  */
 int lab2_node_remove_fg(lab2_tree *tree, int key) {
     // You need to implement lab2_node_remove_fg function.
-	
 }
 
 
@@ -211,7 +199,6 @@ int lab2_node_remove_cg(lab2_tree *tree, int key) {
  */
 void lab2_tree_delete(lab2_tree *tree) {
     // You need to implement lab2_tree_delete function.
-	free(tree);
 }
 
 /*
@@ -224,6 +211,5 @@ void lab2_tree_delete(lab2_tree *tree) {
  */
 void lab2_node_delete(lab2_node *node) {
     // You need to implement lab2_node_delete function.
-	remove(init_tree, node->key);
 }
 
