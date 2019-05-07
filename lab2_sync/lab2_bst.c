@@ -110,7 +110,7 @@ int lab2_node_insert(lab2_tree *tree, lab2_node *new_node){
  */
 int lab2_node_insert_fg(lab2_tree *tree, lab2_node *new_node){
       // You need to implement lab2_node_insert_fg function.
-/*
+
 	pthread_mutex_t lock;
 	pthread_mutex_t lock2;
 	int rc = pthread_mutex_init(&lock,NULL);
@@ -139,7 +139,7 @@ int lab2_node_insert_fg(lab2_tree *tree, lab2_node *new_node){
 	p->key = new_node->key;
 	pthread_mutex_unlock(&lock2);
 	return 0;
-*/
+
 }
 
 /* 
@@ -203,12 +203,15 @@ lab2_node* recu_remove_fg(lab2_node *parents ,lab2_node *root, int key)
 {
 
 	pthread_mutex_t lock;
+	int rc = pthread_mutex_init(&lock,NULL);
 	lab2_node* tempNode = NULL;
 	lab2_node* p = root;
 	lab2_node* q = parents;
-	int rc = pthread_mutex_init((&lock), NULL);
 	assert(rc==0);
-	pthread_mutex_lock(&lock);
+	if(p == NULL)
+		return NULL;
+	if(q == NULL)
+		pthread_mutex_lock(&lock);
 	if(p->key > key)
 		p->left = recu_remove_fg(p, p->left, key);
 	else if(p->key <key)
@@ -257,7 +260,7 @@ int lab2_node_remove(lab2_tree *tree, int key) {
  */
 int lab2_node_remove_fg(lab2_tree *tree, int key) {
     // You need to implement lab2_node_remove_fg function.
-//	recu_remove_fg(NULL, tree->root, key);
+	recu_remove_fg(NULL, tree->root, key);
 	return 0;
 }
 
